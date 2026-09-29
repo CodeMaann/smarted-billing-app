@@ -1,0 +1,6 @@
+{
+  "name": "Smarted Billing System",
+  "description": "Mobile-first offline billing and invoicing app for Indian shops.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

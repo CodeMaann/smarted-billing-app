@@ -1,0 +1,154 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile, role and subscription information",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["owner", "staff"] },
+        "ownerId": { "type": "string" },
+        "account_created_date": { "type": "number" },
+        "trial_start_date": { "type": "number" },
+        "subscription_status": { "type": "string", "enum": ["trial", "active", "expired", "cancelled", "payment_failed"] }
+      },
+      "required": ["email", "role", "account_created_date", "trial_start_date", "subscription_status"]
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "description": "Sales invoice / bill for a transaction",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "updatedAt": { "type": "number" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "paymentMode": { "type": "string" },
+        "total": { "type": "number" },
+        "subtotal": { "type": "number" },
+        "cgst": { "type": "number" },
+        "sgst": { "type": "number" }
+      },
+      "required": ["id", "timestamp", "total", "paymentMode"]
+    },
+    "CatalogItem": {
+      "title": "CatalogItem",
+      "description": "Inventory product item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "rate": { "type": "number" },
+        "costPrice": { "type": "number" },
+        "gstRate": { "type": "number" },
+        "stock": { "type": "number" },
+        "lowStockThreshold": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["id", "name", "rate"]
+    },
+    "CustomerRecord": {
+      "title": "CustomerRecord",
+      "description": "Customer contact and credit ledger record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "balanceDue": { "type": "number" },
+        "totalSpent": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["name"]
+    },
+    "Purchase": {
+      "title": "Purchase",
+      "description": "Stock purchase from supplier",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "supplierId": { "type": "string" },
+        "supplierName": { "type": "string" },
+        "totalAmount": { "type": "number" },
+        "amountPaid": { "type": "number" },
+        "paymentStatus": { "type": "string" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["id", "supplierName", "totalAmount"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "Operational business expense",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "amount": { "type": "number" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["id", "amount", "description", "category"]
+    },
+    "Loan": {
+      "title": "Loan",
+      "description": "Cash loan given by the business owner to an individual",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "borrowerName": { "type": "string" },
+        "phone": { "type": "string" },
+        "amount": { "type": "number" },
+        "dateGiven": { "type": "number" },
+        "expectedRepaymentDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "repaid"] },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["id", "borrowerName", "phone", "amount", "expectedRepaymentDate"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile and subscription metadata"
+    },
+    "/users/{userId}/bills/{billId}": {
+      "schema": "Invoice",
+      "description": "Invoices and bills created by the user"
+    },
+    "/users/{userId}/catalog/{itemId}": {
+      "schema": "CatalogItem",
+      "description": "Inventory items in catalog"
+    },
+    "/users/{userId}/customers/{customerId}": {
+      "schema": "CustomerRecord",
+      "description": "Customer ledger records"
+    },
+    "/users/{userId}/suppliers/{supplierId}": {
+      "description": "Supplier records"
+    },
+    "/users/{userId}/purchases/{purchaseId}": {
+      "schema": "Purchase",
+      "description": "Stock purchase orders"
+    },
+    "/users/{userId}/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Business expense records"
+    },
+    "/users/{userId}/challans/{challanId}": {
+      "description": "Delivery challans"
+    },
+    "/users/{userId}/estimates/{estimateId}": {
+      "description": "Estimates and quotations"
+    },
+    "/users/{userId}/profile/{docId}": {
+      "description": "Shop and business profile settings"
+    },
+    "/users/{userId}/loans/{loanId}": {
+      "schema": "Loan",
+      "description": "Cash loans and repayment tracking"
+    }
+  }
+}
