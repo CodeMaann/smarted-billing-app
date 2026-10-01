@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/api/create-subscription",
-      "destination": "https://smarted-billing-payment-function.vercel.app/api/create-subscription"
+      "destination": "https://smarted-billing-payment-function-sigma.vercel.app/api/create-subscription"
     },
     {
       "source": "/api/verify-payment",
-      "destination": "https://smarted-billing-payment-function.vercel.app/api/verify-payment"
+      "destination": "https://smarted-billing-payment-function-sigma.vercel.app/api/verify-payment"
     }
   ]
 }
